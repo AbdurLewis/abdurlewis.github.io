@@ -401,7 +401,7 @@
           <div class="section-divider reveal"></div>
           <div class="about-text reveal">
             <p>I'm a mechanical engineering student at Thomas Jefferson University graduating May 2026, with hands-on experience in product design, FEA simulation, and materials research.</p>
-            <p>My work spans designing floorbox module systems for large-scale commercial buildings, building statistical testing frameworks for novel biocomposite materials, and leading a Formula SAE chassis design team that secured a $15,000 grant from Tenneco.</p>
+            <p>My work spans designing floorbox module systems for large-scale commercial buildings, building statistical testing frameworks for novel biocomposite materials, and leading a Formula SAE frame design team that secured a $15,000 grant from Tenneco.</p>
             <p>I'm driven by the full arc of engineering work — from first principles and simulation through final drawings and real-world validation.</p>
           </div>
         </div>
@@ -455,7 +455,7 @@
         <div class="project-card reveal">
           <div class="project-img">
             <!-- REPLACE: Add your Formula SAE image below and remove the placeholder div -->
-            <!-- <img src="images/fsae.jpg" alt="Formula SAE Chassis FEA"> -->
+            <!-- <img src="Frame_V3_Displacement.jpg" alt="Formula SAE Chassis FEA"> -->
             <div class="project-img-placeholder">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
               <span>Frame_V3_Stress upper.png</span>
@@ -463,8 +463,8 @@
           </div>
           <div class="project-body">
             <p class="project-category">Structural Analysis · CAD/FEA</p>
-            <h3 class="project-title">Formula SAE Chassis Design & Analysis</h3>
-            <p class="project-desc">Led structural modeling and FEA simulation of vehicle chassis components using ANSYS and SolidWorks Simulation. Proposed a revised chassis design that secured a $15,000 sponsorship grant from Tenneco and was validated through system-level design reviews.</p>
+            <h3 class="project-title">Formula SAE Frame Design & Analysis</h3>
+            <p class="project-desc">Led structural modeling and FEA simulation of vehicle chassis components using ANSYS and SolidWorks Simulation. Proposed a revised frame and chassis design that secured a $15,000 sponsorship grant from Tenneco and was validated through system-level design reviews.</p>
             <div class="project-tags">
               <span class="project-tag">SolidWorks</span>
               <span class="project-tag">ANSYS</span>
