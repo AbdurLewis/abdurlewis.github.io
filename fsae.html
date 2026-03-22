@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formula SAE — Abdur-Rahman Lewis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#1B3A6B; --navy-deep:#0f2347; --gold:#C9A84C; --gold-light:#e8c97a; --off-white:#F5F3EE; --warm-gray:#E8E4DC; --text:#1a1a1a; --text-mid:#444; --text-light:#777; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--text);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(245,243,238,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,58,107,0.12);}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);text-decoration:none;}
+    .nav-back{font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-mid);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--navy);}
+    .project-hero{min-height:55vh;background:var(--navy-deep);display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 5rem 4rem;position:relative;overflow:hidden;}
+    .project-hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;background:var(--off-white);clip-path:polygon(0 100%,100% 100%,100% 0);}
+    .hero-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0;animation:fadeUp 0.5s 0.2s forwards;}
+    .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:#fff;line-height:1.1;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.5s 0.4s forwards;}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:0.6rem;opacity:0;animation:fadeUp 0.5s 0.6s forwards;}
+    .hero-tag{padding:0.3rem 0.9rem;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(201,168,76,0.5);color:var(--gold);border-radius:2px;}
+    .container{max-width:1000px;margin:0 auto;padding:0 3rem;}
+    .project-body{padding:5rem 0;}
+    .project-grid{display:grid;grid-template-columns:1fr 1.8fr;gap:5rem;align-items:start;margin-bottom:4rem;}
+    .sidebar-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+    .sidebar-value{font-size:0.92rem;color:var(--text-mid);line-height:1.6;margin-bottom:1.6rem;}
+    .sidebar-value strong{color:var(--text);font-weight:600;}
+    .highlight-stat{padding:1.2rem 1.4rem;background:#fff;border-left:3px solid var(--gold);margin-bottom:0.9rem;}
+    .highlight-stat .num{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy);}
+    .highlight-stat .label{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);}
+    .content-block h2{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--navy-deep);margin-bottom:0.8rem;line-height:1.2;}
+    .content-block h2+.section-divider{margin-bottom:1.2rem;}
+    .content-block p{font-size:0.97rem;line-height:1.85;color:var(--text-mid);margin-bottom:1.1rem;}
+    .section-divider{width:40px;height:3px;background:var(--gold);margin-bottom:1.4rem;}
+    .gallery-section{padding:4rem 0;background:#fff;}
+    .gallery-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+    .gallery-title{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy-deep);margin-bottom:0.5rem;}
+    .gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+    .gallery-item{overflow:hidden;cursor:pointer;}
+    .gallery-item img{width:100%;height:260px;object-fit:cover;display:block;transition:transform 0.4s;}
+    .gallery-item:hover img{transform:scale(1.04);}
+    .gallery-caption{padding:0.8rem 1rem;background:#fff;border:1px solid var(--warm-gray);border-top:none;}
+    .gallery-caption p{font-size:0.78rem;color:var(--text-light);font-style:italic;}
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(10,20,40,0.95);z-index:1000;align-items:center;justify-content:center;padding:2rem;}
+    .lightbox.active{display:flex;}
+    .lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;transition:opacity 0.2s;background:none;border:none;}
+    .lightbox-close:hover{opacity:1;}
+    .project-nav{background:var(--navy-deep);padding:3rem 0;}
+    .project-nav-inner{display:flex;justify-content:space-between;align-items:center;}
+    .project-nav a{font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;}
+    .project-nav a:hover{color:var(--gold);}
+    .project-nav-center{font-family:'DM Serif Display',serif;color:rgba(255,255,255,0.3);font-size:0.9rem;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s;}
+    .reveal.visible{opacity:1;transform:none;}
+    @media(max-width:768px){.project-hero{padding:6rem 1.5rem 3rem;}.project-grid{grid-template-columns:1fr;gap:2.5rem;}.gallery-grid{grid-template-columns:1fr;}nav{padding:1rem 1.5rem;}.container{padding:0 1.5rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Abdur-Rahman Lewis</a>
+    <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <div class="project-hero">
+    <p class="hero-eyebrow">Structural Analysis · CAD/FEA · Team Leadership</p>
+    <h1 class="hero-title">Formula SAE<br>Chassis Design &amp; Analysis</h1>
+    <div class="hero-tags">
+      <span class="hero-tag">SolidWorks</span>
+      <span class="hero-tag">ANSYS Mechanical</span>
+      <span class="hero-tag">FEA</span>
+      <span class="hero-tag">Applied Mechanics</span>
+      <span class="hero-tag">Vibration Analysis</span>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="container">
+      <div class="project-grid reveal">
+        <div>
+          <div class="highlight-stat"><div class="num">$15K</div><div class="label">Tenneco Grant Secured</div></div>
+          <div class="highlight-stat"><div class="num">2 Yrs</div><div class="label">Team Lead Experience</div></div>
+          <div class="highlight-stat"><div class="num">ANSYS</div><div class="label">Primary FEA Platform</div></div>
+          <p class="sidebar-label" style="margin-top:1.4rem;">Role</p>
+          <p class="sidebar-value"><strong>Design &amp; Analysis Team Lead</strong><br>Thomas Jefferson University</p>
+          <p class="sidebar-label">Duration</p>
+          <p class="sidebar-value">Jan 2023 – Apr 2025</p>
+          <p class="sidebar-label">Tools</p>
+          <p class="sidebar-value">SolidWorks, ANSYS Mechanical, SolidWorks Simulation, MATLAB</p>
+        </div>
+        <div class="content-block">
+          <h2>Project Overview</h2>
+          <div class="section-divider"></div>
+          <p>As Design &amp; Analysis Team Lead for Thomas Jefferson University's Formula SAE program, I led structural modeling and performance validation of the vehicle chassis over two years — taking components from initial CAD modeling through FEA simulation and formal system-level design review.</p>
+          <p>The primary objective was to evaluate structural integrity and dynamic behavior under simulated racing conditions, identify critical stress concentrations and failure modes, and propose design revisions that improved performance without adding mass.</p>
+          <h2 style="margin-top:2rem;">Analysis Methodology</h2>
+          <div class="section-divider"></div>
+          <p>Structural analysis was performed in ANSYS Mechanical, evaluating load factors, stress distributions, axial and bending force distributions, and chassis response across static loading scenarios simulating cornering, braking, and impact conditions representative of Formula SAE competition.</p>
+          <p>Displacement analysis identified zones of maximum deformation under load, informing geometry revisions to critical nodes. Stress plots were used to locate concentration points and validate that revised designs remained within acceptable safety factors.</p>
+          <h2 style="margin-top:2rem;">Outcome</h2>
+          <div class="section-divider"></div>
+          <p>The revised chassis design and FEA documentation were presented in a formal system-level design review, securing a <strong>$15,000 sponsorship grant from Tenneco</strong>. The analysis methodology was adopted as the team's standard validation approach, and I mentored junior engineers in SolidWorks simulation throughout the program.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-section">
+    <div class="container">
+      <p class="gallery-label reveal">Analysis Results</p>
+      <h2 class="gallery-title reveal">Simulation Outputs</h2>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Frame_V3_Stress_upper.png" alt="Chassis Stress Distribution">
+          <div class="gallery-caption"><p>Von Mises stress distribution — upper chassis frame under static loading</p></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Frame_V3_Axial_and_bending_distribution.png" alt="Axial and Bending Force Distribution">
+          <div class="gallery-caption"><p>Axial and bending force distribution across chassis members</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-nav">
+    <div class="container">
+      <div class="project-nav-inner">
+        <a href="index.html#projects">← All Projects</a>
+        <span class="project-nav-center">abdurlewis.github.io</span>
+        <a href="mycelium.html">Next: Mycelium Research →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function openLightbox(el){const img=el.querySelector('img');document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox-img').alt=img.alt;document.getElementById('lightbox').classList.add('active');}
+    function closeLightbox(){document.getElementById('lightbox').classList.remove('active');}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+    const reveals=document.querySelectorAll('.reveal');
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+    reveals.forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>

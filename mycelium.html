@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mycelium Research — Abdur-Rahman Lewis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#1B3A6B;--navy-deep:#0f2347;--gold:#C9A84C;--gold-light:#e8c97a;--off-white:#F5F3EE;--warm-gray:#E8E4DC;--text:#1a1a1a;--text-mid:#444;--text-light:#777;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--text);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(245,243,238,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,58,107,0.12);}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);text-decoration:none;}
+    .nav-back{font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-mid);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--navy);}
+    .project-hero{min-height:55vh;background:var(--navy-deep);display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 5rem 4rem;position:relative;overflow:hidden;}
+    .project-hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;background:var(--off-white);clip-path:polygon(0 100%,100% 100%,100% 0);}
+    .hero-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0;animation:fadeUp 0.5s 0.2s forwards;}
+    .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:#fff;line-height:1.1;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.5s 0.4s forwards;}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:0.6rem;opacity:0;animation:fadeUp 0.5s 0.6s forwards;}
+    .hero-tag{padding:0.3rem 0.9rem;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(201,168,76,0.5);color:var(--gold);border-radius:2px;}
+    .container{max-width:1000px;margin:0 auto;padding:0 3rem;}
+    .project-body{padding:5rem 0;}
+    .project-grid{display:grid;grid-template-columns:1fr 1.8fr;gap:5rem;align-items:start;margin-bottom:4rem;}
+    .sidebar-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+    .sidebar-value{font-size:0.92rem;color:var(--text-mid);line-height:1.6;margin-bottom:1.6rem;}
+    .sidebar-value strong{color:var(--text);font-weight:600;}
+    .highlight-stat{padding:1.2rem 1.4rem;background:#fff;border-left:3px solid var(--gold);margin-bottom:0.9rem;}
+    .highlight-stat .num{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy);}
+    .highlight-stat .label{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);}
+    .content-block h2{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--navy-deep);margin-bottom:0.8rem;line-height:1.2;}
+    .content-block p{font-size:0.97rem;line-height:1.85;color:var(--text-mid);margin-bottom:1.1rem;}
+    .section-divider{width:40px;height:3px;background:var(--gold);margin-bottom:1.4rem;}
+    .gallery-section{padding:4rem 0;background:#fff;}
+    .gallery-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+    .gallery-title{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy-deep);margin-bottom:0.5rem;}
+    .gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+    .gallery-grid.three{grid-template-columns:1fr 1fr 1fr;}
+    .gallery-item{overflow:hidden;cursor:pointer;}
+    .gallery-item img{width:100%;height:240px;object-fit:cover;display:block;transition:transform 0.4s;}
+    .gallery-item:hover img{transform:scale(1.04);}
+    .gallery-caption{padding:0.8rem 1rem;background:#fff;border:1px solid var(--warm-gray);border-top:none;}
+    .gallery-caption p{font-size:0.78rem;color:var(--text-light);font-style:italic;}
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(10,20,40,0.95);z-index:1000;align-items:center;justify-content:center;padding:2rem;}
+    .lightbox.active{display:flex;}
+    .lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;transition:opacity 0.2s;background:none;border:none;}
+    .lightbox-close:hover{opacity:1;}
+    .project-nav{background:var(--navy-deep);padding:3rem 0;}
+    .project-nav-inner{display:flex;justify-content:space-between;align-items:center;}
+    .project-nav a{font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;}
+    .project-nav a:hover{color:var(--gold);}
+    .project-nav-center{font-family:'DM Serif Display',serif;color:rgba(255,255,255,0.3);font-size:0.9rem;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s;}
+    .reveal.visible{opacity:1;transform:none;}
+    @media(max-width:768px){.project-hero{padding:6rem 1.5rem 3rem;}.project-grid{grid-template-columns:1fr;gap:2.5rem;}.gallery-grid,.gallery-grid.three{grid-template-columns:1fr;}nav{padding:1rem 1.5rem;}.container{padding:0 1.5rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Abdur-Rahman Lewis</a>
+    <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <div class="project-hero">
+    <p class="hero-eyebrow">R&amp;D · Materials Science · Mechanical Testing</p>
+    <h1 class="hero-title">Mycelium-Based<br>Composite Materials</h1>
+    <div class="hero-tags">
+      <span class="hero-tag">Python</span>
+      <span class="hero-tag">ANOVA</span>
+      <span class="hero-tag">Heat Transfer</span>
+      <span class="hero-tag">Mechanical Testing</span>
+      <span class="hero-tag">SEM Microscopy</span>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="container">
+      <div class="project-grid reveal">
+        <div>
+          <div class="highlight-stat"><div class="num">~95%</div><div class="label">Predictive Accuracy</div></div>
+          <div class="highlight-stat"><div class="num">Pub.</div><div class="label">Peer-Reviewed Paper</div></div>
+          <div class="highlight-stat"><div class="num">MOR</div><div class="label">Primary Test Metric</div></div>
+          <p class="sidebar-label" style="margin-top:1.4rem;">Role</p>
+          <p class="sidebar-value"><strong>Undergraduate Research Assistant</strong><br>Thomas Jefferson University</p>
+          <p class="sidebar-label">Duration</p>
+          <p class="sidebar-value">Jan 2025 – Present</p>
+          <p class="sidebar-label">Tools &amp; Methods</p>
+          <p class="sidebar-value">Python, ANOVA, Excel, Heat Press, Oven Processing, SEM Microscopy, Modulus of Rupture Testing</p>
+        </div>
+        <div class="content-block">
+          <h2>Research Goal</h2>
+          <div class="section-divider"></div>
+          <p>This research investigates mycelium-based composites as a sustainable alternative to conventional building materials. Mycelium — the root-like network of fungi — can be grown into molds to form lightweight, biodegradable structural panels. The goal is to characterize their mechanical behavior and optimize fabrication parameters to make them viable for real building applications.</p>
+          <p>The core challenge is understanding how processing conditions affect final material rigidity, since mycelium composites are sensitive to moisture content, heat exposure, and pressing parameters during fabrication.</p>
+          <h2 style="margin-top:2rem;">Testing Methodology</h2>
+          <div class="section-divider"></div>
+          <p>I developed and executed a structured experimental protocol applying heat transfer principles to the heat-press process — systematically varying temperature settings, dwell times, and moisture conditions across controlled trial batches. For each set of parameters, samples were evaluated for Modulus of Rupture (MOR) under mechanical loading to quantify rigidity and failure behavior.</p>
+          <p>A Python-based ANOVA framework was built to statistically analyze the relationship between process parameters and mechanical outcomes. This model achieved <strong>~95% predictive accuracy</strong> in forecasting material behavior under varying moisture conditions — providing a reliable guide for fabrication optimization.</p>
+          <p>SEM microscopy and optical microscopy were used to characterize the microstructure of samples at various processing stages, revealing how heat and pressure affect the mycelium fiber network at the microscale.</p>
+          <h2 style="margin-top:2rem;">Outcome</h2>
+          <div class="section-divider"></div>
+          <p>The research identified optimal pressing parameters that measurably improved sample rigidity and reproducibility across batches. The findings and fabrication methodology are currently being written up for a <strong>peer-reviewed publication</strong>, which I am co-authoring alongside the faculty research team.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-section">
+    <div class="container">
+      <p class="gallery-label reveal">Research Documentation</p>
+      <h2 class="gallery-title reveal">Lab Imagery &amp; Data</h2>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Research_SEM1.JPG" alt="SEM Microscopy of Mycelium Composite">
+          <div class="gallery-caption"><p>SEM microscopy — mycelium fiber network structure at the microscale</p></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Research_Microscopy.JPG" alt="Optical Microscopy of Sample">
+          <div class="gallery-caption"><p>Optical microscopy — sample cross-section showing composite structure</p></div>
+        </div>
+      </div>
+      <div class="gallery-grid reveal" style="margin-top:1.5rem;">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Research_Plan.png" alt="Research Testing Plan">
+          <div class="gallery-caption"><p>Experimental test plan — parameter matrix for heat-press trials</p></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Research_data.png" alt="Research Data">
+          <div class="gallery-caption"><p>Sample data — mechanical performance across process parameter conditions</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-nav">
+    <div class="container">
+      <div class="project-nav-inner">
+        <a href="fsae.html">← Formula SAE</a>
+        <span class="project-nav-center">abdurlewis.github.io</span>
+        <a href="capstone.html">Next: Capstone →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function openLightbox(el){const img=el.querySelector('img');document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox-img').alt=img.alt;document.getElementById('lightbox').classList.add('active');}
+    function closeLightbox(){document.getElementById('lightbox').classList.remove('active');}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+    const reveals=document.querySelectorAll('.reveal');
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+    reveals.forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>

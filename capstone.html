@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Capstone — Abdur-Rahman Lewis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#1B3A6B;--navy-deep:#0f2347;--gold:#C9A84C;--gold-light:#e8c97a;--off-white:#F5F3EE;--warm-gray:#E8E4DC;--text:#1a1a1a;--text-mid:#444;--text-light:#777;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--text);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(245,243,238,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,58,107,0.12);}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);text-decoration:none;}
+    .nav-back{font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-mid);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--navy);}
+    .project-hero{min-height:55vh;background:var(--navy-deep);display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 5rem 4rem;position:relative;overflow:hidden;}
+    .project-hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;background:var(--off-white);clip-path:polygon(0 100%,100% 100%,100% 0);}
+    .hero-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0;animation:fadeUp 0.5s 0.2s forwards;}
+    .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:#fff;line-height:1.1;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.5s 0.4s forwards;}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:0.6rem;opacity:0;animation:fadeUp 0.5s 0.6s forwards;}
+    .hero-tag{padding:0.3rem 0.9rem;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(201,168,76,0.5);color:var(--gold);border-radius:2px;}
+    .container{max-width:1000px;margin:0 auto;padding:0 3rem;}
+    .project-body{padding:5rem 0;}
+    .project-grid{display:grid;grid-template-columns:1fr 1.8fr;gap:5rem;align-items:start;margin-bottom:4rem;}
+    .sidebar-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+    .sidebar-value{font-size:0.92rem;color:var(--text-mid);line-height:1.6;margin-bottom:1.6rem;}
+    .sidebar-value strong{color:var(--text);font-weight:600;}
+    .highlight-stat{padding:1.2rem 1.4rem;background:#fff;border-left:3px solid var(--gold);margin-bottom:0.9rem;}
+    .highlight-stat .num{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy);}
+    .highlight-stat .label{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);}
+    .content-block h2{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--navy-deep);margin-bottom:0.8rem;line-height:1.2;}
+    .content-block p{font-size:0.97rem;line-height:1.85;color:var(--text-mid);margin-bottom:1.1rem;}
+    .section-divider{width:40px;height:3px;background:var(--gold);margin-bottom:1.4rem;}
+    .gallery-section{padding:4rem 0;background:#fff;}
+    .gallery-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+    .gallery-title{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy-deep);margin-bottom:0.5rem;}
+    .gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+    .gallery-item{overflow:hidden;cursor:pointer;}
+    .gallery-item img{width:100%;height:240px;object-fit:cover;display:block;transition:transform 0.4s;}
+    .gallery-item:hover img{transform:scale(1.04);}
+    .gallery-caption{padding:0.8rem 1rem;background:#fff;border:1px solid var(--warm-gray);border-top:none;}
+    .gallery-caption p{font-size:0.78rem;color:var(--text-light);font-style:italic;}
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(10,20,40,0.95);z-index:1000;align-items:center;justify-content:center;padding:2rem;}
+    .lightbox.active{display:flex;}
+    .lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;transition:opacity 0.2s;background:none;border:none;}
+    .lightbox-close:hover{opacity:1;}
+    .project-nav{background:var(--navy-deep);padding:3rem 0;}
+    .project-nav-inner{display:flex;justify-content:space-between;align-items:center;}
+    .project-nav a{font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;}
+    .project-nav a:hover{color:var(--gold);}
+    .project-nav-center{font-family:'DM Serif Display',serif;color:rgba(255,255,255,0.3);font-size:0.9rem;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s;}
+    .reveal.visible{opacity:1;transform:none;}
+    @media(max-width:768px){.project-hero{padding:6rem 1.5rem 3rem;}.project-grid{grid-template-columns:1fr;gap:2.5rem;}.gallery-grid{grid-template-columns:1fr;}nav{padding:1rem 1.5rem;}.container{padding:0 1.5rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Abdur-Rahman Lewis</a>
+    <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <div class="project-hero">
+    <p class="hero-eyebrow">Senior Design Capstone · Product Design · Testing</p>
+    <h1 class="hero-title">Football Shoe<br>Protective System</h1>
+    <div class="hero-tags">
+      <span class="hero-tag">Product Design</span>
+      <span class="hero-tag">Nomex Honeycomb</span>
+      <span class="hero-tag">Shear-Thickening Fluid</span>
+      <span class="hero-tag">CAD</span>
+      <span class="hero-tag">Impact Testing</span>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="container">
+      <div class="project-grid reveal">
+        <div>
+          <div class="highlight-stat"><div class="num">STF</div><div class="label">Shear-Thickening Fluid Core</div></div>
+          <div class="highlight-stat"><div class="num">TPU</div><div class="label">Encapsulation Material</div></div>
+          <div class="highlight-stat"><div class="num">Drop</div><div class="label">Weight Test Rig Designed</div></div>
+          <p class="sidebar-label" style="margin-top:1.4rem;">Role</p>
+          <p class="sidebar-value"><strong>Senior Design Team Member</strong><br>Thomas Jefferson University</p>
+          <p class="sidebar-label">Duration</p>
+          <p class="sidebar-value">2025 – 2026</p>
+          <p class="sidebar-label">Tools &amp; Materials</p>
+          <p class="sidebar-value">SolidWorks, Nomex Honeycomb, Shear-Thickening Fluid, TPU, Drop-Weight Test Rig</p>
+        </div>
+        <div class="content-block">
+          <h2>Problem Statement</h2>
+          <div class="section-divider"></div>
+          <p>Cleat-to-cleat impacts in football and soccer are a significant source of foot and ankle injury, yet most athletic cleat designs prioritize traction and weight over impact protection. This project set out to design a lightweight protective insert that could meaningfully reduce peak impact forces without compromising athletic performance or adding prohibitive mass.</p>
+          <h2 style="margin-top:2rem;">Design Approach</h2>
+          <div class="section-divider"></div>
+          <p>The protection system uses a <strong>Nomex honeycomb core</strong> filled with <strong>shear-thickening fluid (STF)</strong> and encapsulated within TPU layers. This combination was selected deliberately: the honeycomb structure provides a high strength-to-weight ratio and distributes impact forces across a larger area, while the STF exploits non-Newtonian fluid behavior — stiffening under rapid impact loads and remaining flexible during normal athletic movement.</p>
+          <p>The result is a system that is adaptive by nature — soft and unobtrusive during normal play, but dramatically stiffer precisely when a cleat impact occurs. TPU encapsulation keeps the assembly durable, flexible, and manufacturable at scale.</p>
+          <h2 style="margin-top:2rem;">Test Rig &amp; Validation</h2>
+          <div class="section-divider"></div>
+          <p>A custom drop-weight test rig was designed and fabricated to simulate cleat-to-cleat impact forces at controlled heights and masses. The rig allows systematic variation of impact energy to generate force-time data, enabling direct comparison of protected versus unprotected configurations and optimization of the honeycomb geometry and STF concentration for maximum energy absorption.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-section">
+    <div class="container">
+      <p class="gallery-label reveal">Design &amp; Fabrication</p>
+      <h2 class="gallery-title reveal">Project Imagery</h2>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Capstone_test_rig_CAD.JPG" alt="Test Rig CAD Design">
+          <div class="gallery-caption"><p>SolidWorks CAD model of the drop-weight impact test rig</p></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Capstone_Bare_rig.JPG" alt="Fabricated Test Rig">
+          <div class="gallery-caption"><p>Fabricated test rig — bare frame prior to instrumentation</p></div>
+        </div>
+      </div>
+      <div class="gallery-grid reveal" style="margin-top:1.5rem;">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Capstone_Rig_Fabrication.JPG" alt="Rig Fabrication Process">
+          <div class="gallery-caption"><p>Fabrication process — assembling the drop-weight test rig</p></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="images/Captone_Honeycomb_testing.JPG" alt="Honeycomb Material Testing">
+          <div class="gallery-caption"><p>Nomex honeycomb core testing — evaluating impact energy absorption</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-nav">
+    <div class="container">
+      <div class="project-nav-inner">
+        <a href="mycelium.html">← Mycelium Research</a>
+        <span class="project-nav-center">abdurlewis.github.io</span>
+        <a href="index.html#projects">All Projects →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function openLightbox(el){const img=el.querySelector('img');document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox-img').alt=img.alt;document.getElementById('lightbox').classList.add('active');}
+    function closeLightbox(){document.getElementById('lightbox').classList.remove('active');}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+    const reveals=document.querySelectorAll('.reveal');
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+    reveals.forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>
